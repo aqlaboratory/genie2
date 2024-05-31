@@ -73,7 +73,7 @@ To balance the sampling time across GPUs, we shuffle the generation tasks. To av
 To reproduce our unconditional generation, run the command below. 
 
 ```
-python genie/sample_unconditional.py --name base --epoch 39 --scale 0.6 --outdir results/base/outputs
+python genie/sample_unconditional.py --name base --epoch 40 --scale 0.6 --outdir results/base/outputs
 ```
 
 ### Motif Scaffolding
@@ -104,13 +104,13 @@ The list of parameters are summarized in the following table.
 To reproduce our single-motif scaffolding, run
 
 ```
-python genie/sample_scaffold.py --name base --epoch 29 --scale 0.4 --outdir results/base/design25 --num_samples 1000
+python genie/sample_scaffold.py --name base --epoch 30 --scale 0.4 --outdir results/base/design25 --num_samples 1000
 ``` 
 
 To reproduce our multi-motif scaffolding, run
 
 ```
-python genie/sample_scaffold.py --name base --epoch 29 --scale 0.4 --outdir results/base/multimotifs --datadir data/multimotifs --num_samples 1000
+python genie/sample_scaffold.py --name base --epoch 30 --scale 0.4 --outdir results/base/multimotifs --datadir data/multimotifs --num_samples 1000
 ```
 
 ## Format of Motif Scaffolding Problem Definition File
