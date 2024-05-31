@@ -1,0 +1,8 @@
+name example
+
+numPairTransformLayers 5
+numEpoches 5
+batchSize 6
+motifProbability 1.0
+logEverySteps 1000
+checkpointEveryEpoches 5
