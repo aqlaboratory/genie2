@@ -39,7 +39,7 @@ An example is provided under `results/base`, which contains the configuration an
 
 ```
 git lfs install
-git pull lfs
+git lfs pull
 ```
 
 For results reported in our manuscript, we used the 40-epoch checkpoint for unconditional generation and 30-epoch checkpoint for motif scaffolding.
