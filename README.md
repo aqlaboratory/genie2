@@ -35,7 +35,14 @@ To sample using a model, create a directory `results/[MODEL_NAME]`, which consis
 -	the model configuration file named `configuration`
 -	a subdirectory named `checkpoints`, where each file is named `epoch=[EPOCH].ckpt` and contains the model weight checkpointed at the specified epoch.
 
-An example is provided under `results/base`, which contains the configuration and checkpoints for our trained model. For results reported in our manuscript, we used the 40-epoch checkpoint for unconditional generation and 30-epoch checkpoint for motif scaffolding.
+An example is provided under `results/base`, which contains the configuration and checkpoints for our trained model. The checkpoints are uploaded via Git LFS (Large File Storage). If LFS is not installed in your machine, [install LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage) and run the command below at the main directory.  
+
+```
+git lfs install
+git pull lfs
+```
+
+For results reported in our manuscript, we used the 40-epoch checkpoint for unconditional generation and 30-epoch checkpoint for motif scaffolding.
 
 ### Unconditional Generation
 
