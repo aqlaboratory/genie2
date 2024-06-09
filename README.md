@@ -7,12 +7,38 @@ This repository provides the implementation code for our [preprint](https://arxi
 ## Setup
 
 Set up Genie 2 by running
-```
+```bash
 git clone https://github.com/aqlaboratory/genie2.git
 cd genie2
 pip install -e .
 ```
 This would clone the repository, install dependencies and set up Genie 2 as a packge.
+
+### Docker
+
+Alternatively, you can run Genie 2 in a Docker container. The included `Dockerfile` contains the required dependencies to run Genie 2 using the `pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime` default base image.
+
+```bash
+## Build Docker Container
+docker build -t genie2 .
+```
+
+Also, you can use the `PYTORCH_TAG` build argument to rebuild with a different base image, thus using different PyTorch, CUDA, and/or cuDNN versions.
+
+For example:
+```bash
+## Use build argument to change versions
+docker build --build-arg "PYTORCH_TAG=2.2.1-cuda12.1-cudnn8-devel"  -t genie2 .
+```
+
+Then, run the container with GPUs and mount a local volume using the following command:
+
+```bash
+## Run Container
+docker run -v .:/data --gpus all -it genie2
+```
+
+This will open a bash terminal inside the container where you can run the following training and generation commands as needed.
 
 ## Training
 
@@ -23,7 +49,7 @@ In `data/afdbreps_l-256_plddt_80`, we provide an index file named `index.txt`. I
 ### Training
 
 To train a model, create a directory `runs/[RUN_NAME]` and create a configuration file with name `configuration` under this directory. An example is provided in `runs/example` and a complete list of configurable parameters could be found in `genie/config.py`. Note that in the configuration file, name should match with RUN_NAME in order to log into the correct directory. To start training, run
-```
+```bash
 python genie/train.py --devices [NUM_DEVICES] --num_nodes [NUM_NODES] --config runs/[RUN_NAME]/configuration
 ```
 
@@ -37,7 +63,7 @@ To sample using a model, create a directory `results/[MODEL_NAME]`, which consis
 
 An example is provided under `results/base`, which contains the configuration and checkpoints for our trained model. The checkpoints are uploaded via Git LFS (Large File Storage). If LFS is not installed in your machine, [install LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage) and run the command below at the main directory.  
 
-```
+```bash
 git lfs install
 git lfs pull
 ```
@@ -48,7 +74,7 @@ For results reported in our manuscript, we used the 40-epoch checkpoint for unco
 
 Perform unconditional sampling by running
 
-```
+```bash
 python genie/sample_unconditional.py --name [NAME] --epoch [EPOCH] --scale [SCALE] --outdir [OUTDIR]
 ``` 
 
@@ -72,7 +98,7 @@ To balance the sampling time across GPUs, we shuffle the generation tasks. To av
 
 To reproduce our unconditional generation, run the command below. 
 
-```
+```bash
 python genie/sample_unconditional.py --name base --epoch 40 --scale 0.6 --outdir results/base/outputs
 ```
 
@@ -82,7 +108,7 @@ We provide the benchmark datasets for single-motif and multi-motif scaffolding u
 
 Perform motif scaffolding by running
 
-```
+```bash
 python genie/sample_scaffold.py --name [NAME] --epoch [EPOCH] --scale [SCALE] --outdir [OUTDIR]
 ```
 
@@ -103,13 +129,13 @@ The list of parameters are summarized in the following table.
 
 To reproduce our single-motif scaffolding, run
 
-```
+```bash
 python genie/sample_scaffold.py --name base --epoch 30 --scale 0.4 --outdir results/base/design25 --num_samples 1000
 ``` 
 
 To reproduce our multi-motif scaffolding, run
 
-```
+```bash
 python genie/sample_scaffold.py --name base --epoch 30 --scale 0.4 --outdir results/base/multimotifs --datadir data/multimotifs --num_samples 1000
 ```
 
