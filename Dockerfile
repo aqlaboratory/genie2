@@ -30,6 +30,11 @@ RUN git clone https://github.com/aqlaboratory/genie2.git \
 
 WORKDIR /app/genie2/
 
-## Install the base checkpoint
-RUN cd results/base \
-    && git lfs pull
+## Download the base checkpoint (from v1.0.0 release)
+RUN mkdir results/base/checkpoints \
+    && cd results/base/checkpoints \
+    # && git lfs pull
+    # && wget https://github.com/aqlaboratory/genie2/releases/download/v1.0.0/epoch.30.ckpt \
+    && wget https://github.com/aqlaboratory/genie2/releases/download/v1.0.0/epoch.40.ckpt \
+    ## Hack to make the checkpoint loadable
+    && ln -s epoch.40.ckpt epoch=40.ckpt
